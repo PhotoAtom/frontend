@@ -1,15 +1,10 @@
 import { KeyCloak } from 'arctic';
-import {
-	KEYCLOAK_REALM_URL,
-	KEYCLOAK_CLIENT_ID,
-	KEYCLOAK_CLIENT_SECRET,
-	KEYCLOAK_REDIRECT_URI
-} from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 // Keycloak Client
 export const keycloak = new KeyCloak(
-	KEYCLOAK_REALM_URL,
-	KEYCLOAK_CLIENT_ID,
-	KEYCLOAK_CLIENT_SECRET,
-	KEYCLOAK_REDIRECT_URI
+	env.KEYCLOAK_REALM_URL,
+	env.KEYCLOAK_CLIENT_ID,
+	env.KEYCLOAK_CLIENT_SECRET,
+	env.KEYCLOAK_REDIRECT_URI
 );
