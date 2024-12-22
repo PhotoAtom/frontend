@@ -11,6 +11,14 @@ FROM oven/bun:1 AS production
 
 WORKDIR /app
 
+ARG CUSTOM_GROUP=photoatom_group
+ARG CUSTOM_GROUP_ID=1001
+ARG CUSTOM_USER=photoatom
+ARG CUSTOMER_USER_ID=1001
+
+RUN groupadd -g ${CUSTOM_GROUP_ID} ${CUSTOM_GROUP} && \
+  useradd -m -u ${CUSTOMER_USER_ID} -g ${CUSTOM_GROUP} ${CUSTOM_USER}
+
 # Valkey Connection Details
 ENV VALKEY_HOST=localhost
 ENV VALKEY_PORT=6379
@@ -26,9 +34,8 @@ ENV KEYCLOAK_CLIENT_SECRET=
 ENV KEYCLOAK_REDIRECT_URI=
 
 COPY --from=build /app/frontend/build ./build
-# COPY --from=build /app/frontend/node_modules ./node_modules
-# COPY --from=build /app/frontend/package.json ./package.json
 
+USER ${CUSTOM_USER}
 EXPOSE 3000
 
 ENTRYPOINT [ "bun", "/app/build/index.js" ]
