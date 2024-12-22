@@ -24,7 +24,6 @@ ENV KEYCLOAK_REALM_URL=
 ENV KEYCLOAK_CLIENT_ID=
 ENV KEYCLOAK_CLIENT_SECRET=
 ENV KEYCLOAK_REDIRECT_URI=
-ENV NODE_TLS_REJECT_UNAUTHORIZED=0
 
 COPY --from=build /app/frontend/build ./build
 # COPY --from=build /app/frontend/node_modules ./node_modules
