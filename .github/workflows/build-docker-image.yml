@@ -30,5 +30,6 @@ jobs:
       pre_build_script: |
         sed -i "s|0.0.1|$SEMVER_VERSION|g" package.json
       build_path: frontend
+      version_name: PHOTOATOM_FRONTEND_VERSION
     secrets: inherit
 
