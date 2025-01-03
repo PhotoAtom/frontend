@@ -1,6 +1,6 @@
 variable "namespace" {
-  default     = "backend"
-  description = "Namespace to be used for deploying PhotoAtom Backend and related resources."
+  default     = "frontend"
+  description = "Namespace to be used for deploying PhotoAtom Frontend and related resources."
 }
 
 // Valkey Variables
