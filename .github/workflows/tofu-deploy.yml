@@ -1,0 +1,54 @@
+name: PhotoAtom Frontend Infrastructure Deployment onto Self Hosted K3D Cluster
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/**
+      - bug/**
+    paths:
+      - infrastructure/*
+      - .github/workflows/tofu-deploy.yml
+  pull_request:
+    types:
+      - opened
+      - closed
+      - synchronize
+    branches:
+      - main
+    paths:
+      - infrastructure/*
+      - .github/workflows/tofu-deploy.yml
+
+concurrency:
+  group: infra-deploy
+
+jobs:
+  namespace_deploy:
+    name: PhotoAtom Frontend Namespace Deployment onto Self Hosted K3d Cluster
+    uses: PhotoAtom/automations/.github/workflows/tofu-deploy.yml@main
+    with:
+      deployment_name: PhotoAtom Frontend Namespace
+      folder_path: infrastructure/namespace
+      runners: photoatom
+    secrets: inherit
+
+  configuration_deploy:
+    needs: [namespace_deploy]
+    name: PhotoAtom Frontend Configuration Deployment onto Self Hosted K3d Cluster
+    uses: PhotoAtom/automations/.github/workflows/tofu-deploy.yml@main
+    with:
+      deployment_name: PhotoAtom Frontend Configuration
+      folder_path: infrastructure/configuration
+      runners: photoatom
+    secrets: inherit
+
+  # certificates_deploy:
+  #   needs: [configuration_deploy]
+  #   name: PhotoAtom Frontend Certificates Deployment onto Self Hosted K3d Cluster
+  #   uses: PhotoAtom/automations/.github/workflows/tofu-deploy.yml@main
+  #   with:
+  #     deployment_name: PhotoAtom Frontend Certificates
+  #     folder_path: infrastructure/certificates
+  #     runners: photoatom
+  #   secrets: inherit
