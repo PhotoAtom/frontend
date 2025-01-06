@@ -1,0 +1,3 @@
+frontend/certificates/tls/ca.crt
+frontend/certificates/tls/tls.crt
+frontend/certificates/tls/tls.key
