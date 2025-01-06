@@ -43,12 +43,12 @@ jobs:
       runners: photoatom
     secrets: inherit
 
-  # certificates_deploy:
-  #   needs: [configuration_deploy]
-  #   name: PhotoAtom Frontend Certificates Deployment onto Self Hosted K3d Cluster
-  #   uses: PhotoAtom/automations/.github/workflows/tofu-deploy.yml@main
-  #   with:
-  #     deployment_name: PhotoAtom Frontend Certificates
-  #     folder_path: infrastructure/certificates
-  #     runners: photoatom
-  #   secrets: inherit
+  certificates_deploy:
+    needs: [configuration_deploy]
+    name: PhotoAtom Frontend Certificates Deployment onto Self Hosted K3d Cluster
+    uses: PhotoAtom/automations/.github/workflows/tofu-deploy.yml@main
+    with:
+      deployment_name: PhotoAtom Frontend Certificates
+      folder_path: infrastructure/certificates
+      runners: photoatom
+    secrets: inherit
