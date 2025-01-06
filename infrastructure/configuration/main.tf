@@ -13,6 +13,25 @@ data "kubernetes_secret" "valkey_password" {
   }
 }
 
+resource "kubernetes_secret" "valkey_certificates" {
+  metadata {
+    name      = "photoatom-valkey-certificates"
+    namespace = var.namespace
+    labels = {
+      app       = "frontend"
+      component = "secret"
+    }
+  }
+
+  data = {
+    "ca.crt"  = data.kubernetes_secret.valkey_certs.data["ca.crt"]
+    "tls.crt" = data.kubernetes_secret.valkey_certs.data["tls.crt"]
+    "tls.key" = data.kubernetes_secret.valkey_certs.data["tls.key"]
+  }
+
+  type = "kubernetes.io/tls"
+}
+
 resource "kubernetes_secret" "valkey" {
   metadata {
     name      = var.photoatom_valkey_secret_name
@@ -24,9 +43,6 @@ resource "kubernetes_secret" "valkey" {
   }
 
   data = {
-    VALKEY_CA_CRT   = data.kubernetes_secret.valkey_certs.data["ca.crt"]
-    VALKEY_TLS_CRT  = data.kubernetes_secret.valkey_certs.data["tls.crt"]
-    VALKEY_TLS_KEY  = data.kubernetes_secret.valkey_certs.data["tls.key"]
     VALKEY_PASSWORD = data.kubernetes_secret.valkey_password.data["valkey-password"]
   }
 
