@@ -101,7 +101,7 @@ resource "kubernetes_config_map" "photoatom_keycloak_configuration" {
   }
 
   data = {
-    KEYCLOAK_URL          = "https://${var.keycloak_host_name}.${var.photoatom_domain}/realms/PhotoAtom"
+    KEYCLOAK_REALM_URL    = "https://${var.keycloak_host_name}.${var.photoatom_domain}/realms/PhotoAtom"
     KEYCLOAK_CLIENT_ID    = "frontend"
     KEYCLOAK_REDIRECT_URI = "https://${var.photoatom_domain}/login/keycloak/callback"
   }
@@ -119,6 +119,6 @@ resource "kubernetes_config_map" "photoatom_backend_configuration" {
   }
 
   data = {
-    PHOTOATOM_BACKEND_API_URL = "${var.backend_host_name}.${var.photoatom_domain}"
+    PHOTOATOM_BACKEND_API_URL = "https://${var.backend_host_name}.${var.photoatom_domain}"
   }
 }
