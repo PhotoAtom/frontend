@@ -36,6 +36,10 @@ ENV KEYCLOAK_REDIRECT_URI=
 # PhotoAtom Connection Details
 ENV PHOTOATOM_BACKEND_API_URL=
 
+# TLS Configuration
+ENV TLS_CERT=
+ENV TLS_CERT_KEY=
+
 COPY --from=build /app/frontend/build ./build
 
 USER ${CUSTOM_USER}
