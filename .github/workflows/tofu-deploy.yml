@@ -7,7 +7,7 @@ on:
       - feature/**
       - bug/**
     paths:
-      - infrastructure/*
+      - infrastructure/**
       - .github/workflows/tofu-deploy.yml
   pull_request:
     types:
@@ -17,7 +17,7 @@ on:
     branches:
       - main
     paths:
-      - infrastructure/*
+      - infrastructure/**
       - .github/workflows/tofu-deploy.yml
 
 concurrency:
