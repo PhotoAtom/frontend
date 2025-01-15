@@ -1,0 +1,22 @@
+name: PhotoAtom Frontend Deployment onto Self Hosted K3D Cluster
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      deploy_version:
+        default: ""
+        type: string
+        required: false
+        description: PhotoAtom Frontend version to deploy [LEAVE BLANK TO TAKE LATEST STABLE VERSION]
+
+jobs:
+  backend_deploy:
+    name: PhotoAtom Frontend Deployment onto Self Hosted K3d Cluster
+    uses: PhotoAtom/automations/.github/workflows/tofu-deploy.yml@main
+    with:
+      artifact_version: ${{ inputs.deploy_version == '' && vars.PHOTOATOM_FRONTEND_VERSION || inputs.deploy_version }}
+      deployment_name: PhotoAtom Frontend
+      folder_path: infrastructure/deployment
+      runners: photoatom
+    secrets: inherit
