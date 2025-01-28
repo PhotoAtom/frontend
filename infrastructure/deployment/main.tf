@@ -75,7 +75,7 @@ resource "kubernetes_deployment" "frontend_deployment" {
         container {
 
           name  = "backend"
-          image = "vhkhatri/photoatom_frontend:${var.artifact_version}"
+          image = "quay.io/photoatom/frontend:${var.artifact_version}"
 
           // Port mappings for the backend
           port {
